@@ -23,6 +23,13 @@ def facility_location(V, A, W):
     V - the entire ground set V, containing all the indices that we want
     W - the similarity matrix of size n x n, where n is the cardinality of V
     """
+    if isinstance(A, set): # better to use standard list indexing rather than set indexing
+        A = list(A)
+
     W_A = W[:,A] # this is the submatrix of the entire symmetric matrix indexed by A on the columns of the W matrix - this means that the rows index the elements of V and the columns index the elements of A
-    fl_val = torch.sum(torch.max(W_A, dim = 1))
+
+    if len(A) == 0:
+        fl_val = 0
+    else:
+        fl_val = torch.sum(torch.max(W_A, dim = 1).values)
     return fl_val

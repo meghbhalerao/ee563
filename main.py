@@ -4,6 +4,7 @@ import torch
 from submodular_functions.facility_location import make_kernel
 import wandb
 import sys
+from greedy import greedy_max
 
 #wandb.init()
 use_gpu = True if torch.cuda.is_available() else False
@@ -22,7 +23,6 @@ W  = make_kernel(dataset)
 print("shape of the symmetric similarity kernel is ", W.shape)
 
 # doing some initializations
-V = np.arange(0, n_data)
-print(V)
-sys.exit()
-greedy_max(dataset, )
+V = set(list(np.arange(0, n_data)))
+
+greedy_max(dataset, V, k = 10, fn = 'FL', W = W, greedy_type = 'standard')
